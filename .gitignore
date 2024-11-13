@@ -79,6 +79,16 @@ composer.phar
 
 # Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+.DS_Store
+
+application/cache/*
+!application/cache/index.html
+
+application/logs/*
+!application/logs/index.html
+
+!application/*/.htaccess
+
 composer.lock
 
 ### Example user template template
@@ -106,12 +116,22 @@ Backup of *.doc*
 
 # PowerPoint temporary
 ~$*.ppt*
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+/vendor/
 
 # Visio autosave temporary files
 *.~vsd*
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
 
 ### SublimeText template
 # Cache files for Sublime Text
+## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
@@ -193,3 +213,11 @@ storage/tmp/*
 !/storage/.gitkeep
 !/storage/.htaccess
 !/storage/index.html
+*.sublime-project
+/tests/tests/
+/tests/results/
+*.zip
+
+pull.bat
+.vercel
+.editorconfig

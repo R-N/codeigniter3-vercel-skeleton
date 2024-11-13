@@ -1,6 +1,5 @@
 <?php
-
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | of this setting
 |
 */
-defined('SHOW_DEBUG_BACKTRACE') or define('SHOW_DEBUG_BACKTRACE', true);
+defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +26,10 @@ defined('SHOW_DEBUG_BACKTRACE') or define('SHOW_DEBUG_BACKTRACE', true);
 | always be used to set the mode correctly.
 |
 */
-defined('FILE_READ_MODE') or define('FILE_READ_MODE', 0644);
-defined('FILE_WRITE_MODE') or define('FILE_WRITE_MODE', 0666);
-defined('DIR_READ_MODE') or define('DIR_READ_MODE', 0755);
-defined('DIR_WRITE_MODE') or define('DIR_WRITE_MODE', 0755);
+defined('FILE_READ_MODE')  OR define('FILE_READ_MODE', 0644);
+defined('FILE_WRITE_MODE') OR define('FILE_WRITE_MODE', 0666);
+defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
+defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 
 /*
 |--------------------------------------------------------------------------
@@ -40,20 +39,14 @@ defined('DIR_WRITE_MODE') or define('DIR_WRITE_MODE', 0755);
 | These modes are used when working with fopen()/popen()
 |
 */
-defined('FOPEN_READ') or define('FOPEN_READ', 'rb');
-defined('FOPEN_READ_WRITE') or define('FOPEN_READ_WRITE', 'r+b');
-defined('FOPEN_WRITE_CREATE_DESTRUCTIVE') or define(
-    'FOPEN_WRITE_CREATE_DESTRUCTIVE',
-    'wb'
-); // truncates existing file data, use with care
-defined('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE') or define(
-    'FOPEN_READ_WRITE_CREATE_DESTRUCTIVE',
-    'w+b'
-); // truncates existing file data, use with care
-defined('FOPEN_WRITE_CREATE') or define('FOPEN_WRITE_CREATE', 'ab');
-defined('FOPEN_READ_WRITE_CREATE') or define('FOPEN_READ_WRITE_CREATE', 'a+b');
-defined('FOPEN_WRITE_CREATE_STRICT') or define('FOPEN_WRITE_CREATE_STRICT', 'xb');
-defined('FOPEN_READ_WRITE_CREATE_STRICT') or define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
+defined('FOPEN_READ')                           OR define('FOPEN_READ', 'rb');
+defined('FOPEN_READ_WRITE')                     OR define('FOPEN_READ_WRITE', 'r+b');
+defined('FOPEN_WRITE_CREATE_DESTRUCTIVE')       OR define('FOPEN_WRITE_CREATE_DESTRUCTIVE', 'wb'); // truncates existing file data, use with care
+defined('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE')  OR define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE', 'w+b'); // truncates existing file data, use with care
+defined('FOPEN_WRITE_CREATE')                   OR define('FOPEN_WRITE_CREATE', 'ab');
+defined('FOPEN_READ_WRITE_CREATE')              OR define('FOPEN_READ_WRITE_CREATE', 'a+b');
+defined('FOPEN_WRITE_CREATE_STRICT')            OR define('FOPEN_WRITE_CREATE_STRICT', 'xb');
+defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 
 /*
 |--------------------------------------------------------------------------
@@ -80,22 +73,22 @@ defined('FOPEN_READ_WRITE_CREATE_STRICT') or define('FOPEN_READ_WRITE_CREATE_STR
 |       http://tldp.org/LDP/abs/html/exitcodes.html
 |
 */
-defined('EXIT_SUCCESS') or define('EXIT_SUCCESS', 0); // no errors
-defined('EXIT_ERROR') or define('EXIT_ERROR', 1); // generic error
-defined('EXIT_CONFIG') or define('EXIT_CONFIG', 3); // configuration error
-defined('EXIT_UNKNOWN_FILE') or define('EXIT_UNKNOWN_FILE', 4); // file not found
-defined('EXIT_UNKNOWN_CLASS') or define('EXIT_UNKNOWN_CLASS', 5); // unknown class
-defined('EXIT_UNKNOWN_METHOD') or define('EXIT_UNKNOWN_METHOD', 6); // unknown class member
-defined('EXIT_USER_INPUT') or define('EXIT_USER_INPUT', 7); // invalid user input
-defined('EXIT_DATABASE') or define('EXIT_DATABASE', 8); // database error
-defined('EXIT__AUTO_MIN') or define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
-defined('EXIT__AUTO_MAX') or define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+defined('EXIT_SUCCESS')        OR define('EXIT_SUCCESS', 0); // no errors
+defined('EXIT_ERROR')          OR define('EXIT_ERROR', 1); // generic error
+defined('EXIT_CONFIG')         OR define('EXIT_CONFIG', 3); // configuration error
+defined('EXIT_UNKNOWN_FILE')   OR define('EXIT_UNKNOWN_FILE', 4); // file not found
+defined('EXIT_UNKNOWN_CLASS')  OR define('EXIT_UNKNOWN_CLASS', 5); // unknown class
+defined('EXIT_UNKNOWN_METHOD') OR define('EXIT_UNKNOWN_METHOD', 6); // unknown class member
+defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user input
+defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
+defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
+defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 // Custom Constants
-defined('_PROCESS_TEST_') or define('_PROCESS_TEST_', false);
-defined('CACHE_KEY') or define('CACHE_KEY', 'Bear-CodeIgniter-v3-Skeleton-on-Vercel-Cache-');
-defined('GLOBAL_CACHE_PREFIX') or define('GLOBAL_CACHE_PREFIX', CACHE_KEY);
-defined('MY_TELEGRAM_ID') or define('MY_TELEGRAM_ID', '1234');
-defined('TELEGRAM_JARVIS_BOT') or define('TELEGRAM_JARVIS_BOT', [
+defined('_PROCESS_TEST_') OR define('_PROCESS_TEST_', FALSE);
+defined('CACHE_KEY') OR define('CACHE_KEY', 'Bear-CodeIgniter-v3-Skeleton-on-Vercel-Cache-');
+defined('GLOBAL_CACHE_PREFIX') OR define('GLOBAL_CACHE_PREFIX', CACHE_KEY);
+defined('MY_TELEGRAM_ID') OR define('MY_TELEGRAM_ID', '1234');
+defined('TELEGRAM_JARVIS_BOT') OR define('TELEGRAM_JARVIS_BOT', [
     'telegram_messages' => [
         'bot_name' => 'xxx',
         'bot_api_key' => 'xxx',
@@ -103,4 +96,4 @@ defined('TELEGRAM_JARVIS_BOT') or define('TELEGRAM_JARVIS_BOT', [
     ]
 ]);
 // Elasticsearch
-defined('HOST_ELASTICSEARCH') or define('HOST_ELASTICSEARCH', 'http://127.0.0.1:9200');
+defined('HOST_ELASTICSEARCH') OR define('HOST_ELASTICSEARCH', 'http://127.0.0.1:9200');

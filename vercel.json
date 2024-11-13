@@ -9,7 +9,23 @@
     "outputDirectory": "public",
     "routes": [
         {
-            "src": "/assets/(css|favicon|images|js)/(.*)",
+            "src": "/assets/(.*)/(.*)/(.*)/(.*)",
+            "dest": "assets/$1/$2/$3/$4"
+        },
+        {
+            "src": "/assets/(.*)/(.*)/(.*)",
+            "dest": "assets/$1/$2/$3"
+        },
+        {
+            "src": "/assets/(.*)/(.*)",
+            "dest": "assets/$1/$2"
+        },
+        {
+            "src": "/assets/(.*)",
+            "dest": "assets/$1"
+        },
+        {
+            "src": "/assets/(.*)/(.*)",
             "dest": "assets/$1/$2"
         },
         {

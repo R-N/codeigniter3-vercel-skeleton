@@ -30,7 +30,7 @@
  * @author       EllisLab Dev Team
  * @copyright    Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
  * @copyright    Copyright (c) 2014 - 2018, British Columbia Institute of Technology (http://bcit.ca/)
- * @license      http://opensource.org/licenses/MIT	MIT License
+ * @license      http://opensource.org/licenses/MIT MIT License
  * @link         https://codeigniter.com
  * @since        Version 1.0.0
  * @filesource
@@ -53,7 +53,8 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-define('ENVIRONMENT', $_SERVER['CI_ENV'] ?? 'production');
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+
 
 /*
  *---------------------------------------------------------------
@@ -71,7 +72,7 @@ switch (ENVIRONMENT) {
     case 'testing':
     case 'production':
         ini_set('display_errors', 0);
-        if (PHP_VERSION_ID >= 50300) {
+        if (PHP_VERSION_ID >= 50300 && version_compare(PHP_VERSION, '5.3', '>=')) {
             error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
         } else {
             error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
@@ -91,7 +92,9 @@ switch (ENVIRONMENT) {
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
+$system_path = 'system';
 //$system_path = dirname(__DIR__) . '/vendor/nguyenanhung/codeigniter-framework/system';
+$system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'system';
 $system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'vendor/nguyenanhung/codeigniter-framework/system';
 
 /*
@@ -109,7 +112,8 @@ $system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'vendor/nguyena
  *
  * NO TRAILING SLASH!
  */
-$application_folder = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'app';
+$application_folder = 'application';
+$application_folder = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'application';
 
 /*
  *---------------------------------------------------------------
@@ -153,7 +157,7 @@ $view_folder = '';
 // $routing['controller'] = '';
 
 // The controller function you wish to be called.
-// $routing['function']	= '';
+// $routing['function'] = '';
 
 /*
  * -------------------------------------------------------------------
@@ -183,6 +187,7 @@ $view_folder = '';
 
 // Set the current directory correctly for CLI requests
 if (defined('STDIN')) {
+    chdir(dirname(__FILE__));
     chdir(__DIR__);
 }
 
@@ -219,7 +224,8 @@ define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
 define('BASEPATH', $system_path);
 
 // Path to the front controller (this file) directory
-const FCPATH = __DIR__ . DIRECTORY_SEPARATOR;
+define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+//const FCPATH = __DIR__ . DIRECTORY_SEPARATOR;
 
 // Name of the "system" directory
 define('SYSDIR', basename(BASEPATH));
