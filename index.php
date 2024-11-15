@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : (getenv('CI_ENV') ? getenv('CI_ENV') : 'development'));
 
 
 /*
@@ -71,12 +71,8 @@ switch (ENVIRONMENT) {
         break;
     case 'testing':
     case 'production':
-        ini_set('display_errors', 0);
-        if (PHP_VERSION_ID >= 50300 && version_compare(PHP_VERSION, '5.3', '>=')) {
-            error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT & ~E_USER_NOTICE & ~E_USER_DEPRECATED);
-        } else {
-            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_USER_NOTICE);
-        }
+        error_reporting(-1);
+        ini_set('display_errors', 1);
         break;
     default:
         header('HTTP/1.1 503 Service Unavailable.', true, 503);
@@ -92,10 +88,14 @@ switch (ENVIRONMENT) {
  * This variable must contain the name of your "system" directory.
  * Set the path if it is not in the same directory as this file.
  */
-$system_path = 'system';
 //$system_path = dirname(__DIR__) . '/vendor/nguyenanhung/codeigniter-framework/system';
-$system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'system';
 $system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'vendor/nguyenanhung/codeigniter-framework/system';
+if (!is_dir($system_path)){
+    $system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'system';
+}
+if (!is_dir($system_path)){
+    $system_path = 'system';
+}
 
 /*
  *---------------------------------------------------------------
@@ -112,8 +112,10 @@ $system_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'vendor/nguyena
  *
  * NO TRAILING SLASH!
  */
-$application_folder = 'application';
 $application_folder = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'application';
+if (!is_dir($application_folder)){
+    $application_folder = 'application';
+}
 
 /*
  *---------------------------------------------------------------

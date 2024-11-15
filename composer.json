@@ -43,7 +43,10 @@
     "nguyenanhung/codeigniter-framework": "^3.2",
     "nguyenanhung/my-debug": "^4.0 || ^3.0",
     "nguyenanhung/requests": "^4.0 || ^3.0",
-    "nguyenanhung/basic-firewall": "^2.0"
+    "nguyenanhung/basic-firewall": "^2.0",
+    "ext-pgsql": "*",
+    "ext-pdo_pgsql": "*",
+    "lib-pgsql-libpq": "*"
   },
   "autoload": {
     "psr-4": {
