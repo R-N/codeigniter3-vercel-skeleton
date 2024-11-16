@@ -10,7 +10,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Time: 03:21
  */
 $config['config_hashids'] = [
-    'salt' => 'qlc40HyUN0wxkUde26qz4oFHWMoRUG0d',
+    'salt' => '4tvw3t4w34t5',
     'minHashLength' => 12,
     'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 ];
