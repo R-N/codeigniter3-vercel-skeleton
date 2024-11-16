@@ -33,6 +33,7 @@ $path = substr($req_uri,0,strrpos($req_uri,'/'));
 
 $config['base_url'] = $root;
 if (ENVIRONMENT == "production"){
+    //$config['base_url'] = '';
     $config['base_url'] = getenv("BASE_URL") ? getenv("BASE_URL") : $config['base_url'];
 }
 
@@ -408,6 +409,9 @@ if (ENVIRONMENT == "production"){
     $config['sess_save_path'] = __DIR__ . '/../../storage/ci_sessions/';
     if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
         $config['sess_save_path'] = sys_get_temp_dir();
+    }
+    if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
+        $config['sess_save_path'] = NULL;
     }
 }
 if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
