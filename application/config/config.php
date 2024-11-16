@@ -410,12 +410,9 @@ if (ENVIRONMENT == "production"){
     if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
         $config['sess_save_path'] = sys_get_temp_dir();
     }
-    if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
-        $config['sess_save_path'] = NULL;
-    }
 }
 if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
-    $config['sess_save_path'] = '';
+    $config['sess_save_path'] = NULL;
 }
 $config['sess_match_ip'] = FALSE;
 $config['sess_match_ip'] = TRUE;
