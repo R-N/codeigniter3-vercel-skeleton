@@ -10,6 +10,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 class MY_Loader extends HungNG_Loader
 {    /* overloaded methods */
+    
+    public function __construct() {
+        $this->_ci_view_paths[FCPATH . 'assets/']=TRUE;
+        $this->_ci_view_paths[FCPATH . '/']=TRUE;
+    }
 
     public function database( $params = '', $return = false, $query_builder = null ) {
         $ci =& get_instance( );
