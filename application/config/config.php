@@ -35,6 +35,11 @@ $config['base_url'] = $root;
 if (ENVIRONMENT == "production"){
     //$config['base_url'] = '';
     $config['base_url'] = getenv("BASE_URL") ? getenv("BASE_URL") : $config['base_url'];
+
+    $parsed_url = parse_url($url);
+    $protocol = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : $protocol;
+    $domain = isset($parsed_url['host']) ? $parsed_url['host'] : $domain;
+    $path = isset($parsed_url['path']) ? $parsed_url['path'] : $path;
 }
 
 /*
@@ -402,6 +407,10 @@ $config['sess_cookie_name'] = sha1(
     'Session_Cookie_Name_HungNG_CodeIgniter_v3_skeleton_tVdOt99RreiaULriXOnxflwCzehBxQNc'
 );
 $config['sess_expiration'] = 7200;
+$config['sess_expire_on_close'] = FALSE;
+$config['sess_encrypt_cookie']  = TRUE; 
+$config['sess_use_database']    = FALSE;
+$config['sess_table_name']      = 'ci_sessions';
 $config['sess_save_path'] = NULL;
 if (ENVIRONMENT == "production"){
     $config['sess_save_path'] = sys_get_temp_dir();
@@ -416,6 +425,7 @@ if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path']
 }
 $config['sess_match_ip'] = FALSE;
 $config['sess_match_ip'] = TRUE;
+$config['sess_match_useragent'] = TRUE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
 
