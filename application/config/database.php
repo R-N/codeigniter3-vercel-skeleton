@@ -93,7 +93,8 @@ $db['default'] = array(
     'compress' => FALSE,
     'stricton' => FALSE,
     'failover' => array(),
-    'save_queries' => TRUE
+    'save_queries' => TRUE,
+    'sslmode' => 'allow'
 );
 
 if ($db['default']['dbdriver'] == 'postgre'){
@@ -113,4 +114,7 @@ if (ENVIRONMENT == 'production'){
     $db['default']['password'] = getenv('POSTGRES_PASSWORD') ? getenv('POSTGRES_PASSWORD') : $db['default']['password'];
     $db['default']['database'] = getenv('POSTGRES_DATABASE') ? getenv('POSTGRES_DATABASE') : $db['default']['database'];
     $db['default']['dbdriver'] = 'postgre';
+    // $db['default']['pconnect'] = TRUE;
+    //$db['default']['dbdriver'] = 'pdo';
+    //$db['default']['dsn'] = "pgsql:host={$db['default']['hostname']};port={$db['default']['port']};dbname={$db['default']['database']};sslmode={$db['default']['sslmode']}";
 }
