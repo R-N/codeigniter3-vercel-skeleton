@@ -10,5 +10,4 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * Time: 02:00
  */
 $config['whitelist_ip'] = [
-    '172.104.35.45'
 ];
