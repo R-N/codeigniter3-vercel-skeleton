@@ -41,6 +41,8 @@ much difference compared to the `codeigniter3-skeleton` package.
 - `vercel-node.js` version `18.x`
   ![https://i.imgur.com/EL7UAh8.png](https://i.imgur.com/EL7UAh8.png)
 
+Important. If you don't change to node 18, postgresql/pgsql won't load. 
+
 ## 💯 Vercel PHP Runtime Versions
 
 - `vercel-php@0.7.1` - Node 18.x / PHP 8.3.x (https://example-php-8-3.vercel.app)
