@@ -28,19 +28,25 @@ $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'h
 $domain = $_SERVER['HTTP_HOST'];
 $root = $protocol.$domain;
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
-$req_uri = $_SERVER['REQUEST_URI'];
-$path = substr($req_uri,0,strrpos($req_uri,'/'));
+
+$url = $_SERVER['REQUEST_URI'];
+$parsed_url = parse_url($url);
 
 $config['base_url'] = $root;
 if (ENVIRONMENT == "production"){
     //$config['base_url'] = '';
     $config['base_url'] = getenv("BASE_URL") ? getenv("BASE_URL") : $config['base_url'];
 
-    $parsed_url = parse_url($config['base_url']);
+    $url = $config['base_url'];
+    $parsed_url = parse_url($url);
+
     $protocol = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : $protocol;
     $domain = isset($parsed_url['host']) ? $parsed_url['host'] : $domain;
-    $path = isset($parsed_url['path']) ? $parsed_url['path'] : $path;
 }
+$path = isset($parsed_url['path']) ? $parsed_url['path'] : "/";
+$path = ltrim($path, "/");
+$path = substr($path, 0, strpos($path,'/'));
+$path = ltrim($path, "/");
 
 /*
 |--------------------------------------------------------------------------
