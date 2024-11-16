@@ -36,7 +36,7 @@ if (ENVIRONMENT == "production"){
     //$config['base_url'] = '';
     $config['base_url'] = getenv("BASE_URL") ? getenv("BASE_URL") : $config['base_url'];
 
-    $parsed_url = parse_url($url);
+    $parsed_url = parse_url($config['base_url']);
     $protocol = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : $protocol;
     $domain = isset($parsed_url['host']) ? $parsed_url['host'] : $domain;
     $path = isset($parsed_url['path']) ? $parsed_url['path'] : $path;
