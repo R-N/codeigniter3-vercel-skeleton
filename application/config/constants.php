@@ -84,7 +84,17 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-define('IMAGE_PATH', 'assets/uploads/foto');
+$image_path = 'assets/uploads/foto';
+if (ENVIRONMENT == 'production'){
+    $image_path = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $image_path;
+    if (!is_dir($image_path) || !is_writable($image_path)){
+        $image_path = 'assets/uploads/foto';
+    }
+    if (!is_dir($image_path) || !is_writable($image_path)){
+        $image_path =  sys_get_temp_dir();
+    }
+}
+define('IMAGE_PATH', $image_path);
 // Custom Constants
 defined('_PROCESS_TEST_') OR define('_PROCESS_TEST_', FALSE);
 defined('CACHE_KEY') OR define('CACHE_KEY', 'Bear-CodeIgniter-v3-Skeleton-on-Vercel-Cache-');
