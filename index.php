@@ -67,12 +67,17 @@ define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : (getenv('
 switch (ENVIRONMENT) {
     case 'development':
         error_reporting(-1);
+        ini_set('log_errors', 1); 
         ini_set('display_errors', 1);
+        ini_set('error_log', 'application/logs/error.log'); // Specify the log file location
         break;
     case 'testing':
     case 'production':
+        //error_reporting(E_ALL & ~E_WARNING);
         error_reporting(-1);
+        ini_set('log_errors', 1); 
         ini_set('display_errors', 1);
+        ini_set('error_log', $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'error.log'); // Specify the log file location
         break;
     default:
         header('HTTP/1.1 503 Service Unavailable.', true, 503);

@@ -20,10 +20,17 @@ class MY_Loader extends HungNG_Loader
 
         require_once( BASEPATH . 'database/DB.php' );
 
-        $db =& DB( $params, $query_builder );
+        try{
+            $db =& DB( $params, $query_builder );
+        }catch(Exception $e){
+            if (strpos($e->getMessage(), 'pg_query(): Query failed: ERROR: syntax error at or near "-" LINE 1: SET search_path') !== false){
+            } else {
+                throw $e;
+            }
+        }
 
         $driver = config_item( 'subclass_prefix' ) . 'DB_' . $db->dbdriver . '_driver';
-        $dirs = array("libraries", "core");
+        $dirs = array("libraries", "core", "database", "database/drivers", "database/drivers/postgre");
         foreach ($dirs as $dir){
             $file = APPPATH . "{$dir}/{$driver}.php";
     
