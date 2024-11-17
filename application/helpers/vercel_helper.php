@@ -1,18 +1,80 @@
 <?php
 
+if (!function_exists('consoleLog')){
+    function consoleLog($obj, $script=TRUE){
+        $obj = "console.log(" . json_encode($obj, JSON_PRETTY_PRINT) . ");";
+        if ($script){
+            $obj = "<script>" . $obj . "</script>";
+        }
+        echo $obj;
+    }
+}
+
 if (!function_exists('mysqlToPostgres')) {
-    function mysqlToPostgres($query){
+    require_once(APPPATH."/libraries/ParensParser.php");
+    
+
+    function mysqlToPostgres($query, $parsed=0) {
         $db = &get_instance()->db;
         if ($db->dbdriver !== "postgre")
             return $query;
+
+        if (!is_string($query)){
+            $main = '';
+            $subqueries = [];
+            
+            $subqueryCounter = 0;
+            $i = 0;
+            foreach($query as $q){
+                // consoleLog("q{$parsed}.{$i}");
+                // consoleLog($q);
+                if (is_string($q)){
+                    $main = trim($main . " " . trim($q));
+                }else{
+                    $q = mysqlToPostgres($q, $parsed+1);
+                    $q = trim($q);
+                    array_push($subqueries, $q);
+                    $main = trim($main . " (?" . $subqueryCounter++ . ")");
+                }
+                // consoleLog($q);
+            }
+            $main = trim($main);
+            // consoleLog("Building {$parsed}");
+            // consoleLog($main);
+            // consoleLog($subqueries);
+            $main = mysqlToPostgres($main, $parsed);
+            // consoleLog($main);
+            $query2 = $main;
+            $i = 0;
+            foreach ($subqueries as $q){
+                $query2 = str_replace('?' . ($i++), $q, $query2);
+            }
+            // consoleLog($query2);
+            $query = $query2;
+            if ($parsed == 1){
+                return $query;
+            }
+        }
+
         $schema = $db->schema;  // Replace with your dynamic schema name
 
         // Replace backticks
         $query = str_replace('`', '', $query);
 
+        if (!$parsed){
+            $parensParser = new ParensParser();
+            // consoleLog("Parsing!");
+            // consoleLog($query);
+            $arr = $parensParser->parse($query);
+            // consoleLog($arr);
+            if (!(count($arr) == 1 && is_string($arr[0]))){
+                $query = mysqlToPostgres($arr, 1);
+            }
+        }
+
         // Replace Show Columns
         $query = preg_replace(
-            '/SHOW\s+COLUMNS\s+FROM\s+\"?([\`\'\"a-zA-Z0-9\-_,\(\)\s]+?)\"?(?=$|\;|\s+(ON|WHERE|HAVING|LIMIT|OFFSET|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|\;|$))/i', 
+            '/SHOW\s+COLUMNS\s+FROM\s+\"?([\`\'\"a-zA-Z0-9\-_,\(\)\?\s]+?)\"?(?=$|\;|\s+(ON|WHERE|HAVING|LIMIT|OFFSET|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|\;|$))/i', 
             "
             SELECT DISTINCT
                 c.column_name AS \"Field\",
@@ -52,7 +114,7 @@ if (!function_exists('mysqlToPostgres')) {
 
 
         // Wrap select column name in quotation marks
-        // $query = preg_replace_callback('/\bSELECT\s+([\`\'\"a-zA-Z0-9\-_,\(\)\s]+?)(?=$|\;|\s+(FROM|\;|$))/i', function($matches) use ($schema) {
+        // $query = preg_replace_callback('/\bSELECT\s+([\`\'\"a-zA-Z0-9\-_,\(\)\?\s]+?)(?=$|\;|\s+(FROM|\;|$))/i', function($matches) use ($schema) {
         //     // Split comma-separated cols
         //     $cols = explode(',', $matches[1]);
         //     foreach ($cols as &$col) {
@@ -69,13 +131,12 @@ if (!function_exists('mysqlToPostgres')) {
 
 
         // Add schema name to tables in FROM, JOIN, LEFT JOIN, RIGHT JOIN clauses (only once per table name)
-        $query = preg_replace_callback('/\b(FROM|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN)\s+([\`\'\"a-zA-Z0-9\-_,\(\)\s]+?)(?=$|\;|\s+(ON|WHERE|HAVING|LIMIT|OFFSET|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|\;|$))/i', function($matches) use ($schema) {
+        $query = preg_replace_callback('/\b(FROM|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN)\s+([\`\'\"a-zA-Z0-9\-_,\(\)\?\s]+?)(?=$|\;|\s+(ON|WHERE|HAVING|LIMIT|OFFSET|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|ORDER\s+BY|\;|$))/i', function($matches) use ($schema) {
             // Split comma-separated tables
             $tables = explode(',', $matches[2]);
             foreach ($tables as &$table) {
                 // Trim spaces and add schema to each table name
-                $table = trim($table);
-                $table = "\"{$schema}\".{$table}";
+                $table = addSchema($table);
             }
             $tables = implode(', ', $tables);
             $rest = '';
@@ -119,5 +180,16 @@ if (!function_exists('fixPath')) {
             return $path;
         }
         return $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $path;
+    }
+}
+
+if (!function_exists('addSchema')) {
+    function addSchema($table){
+        $table = trim($table);
+        if (strpos($table, ".") !== FALSE || strpos($table, "?") !== FALSE) {
+            return $table;
+        }
+        $schema = &get_instance()->db->schema;
+        return "\"{$schema}\".{$table}";
     }
 }
