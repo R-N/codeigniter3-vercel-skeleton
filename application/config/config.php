@@ -409,15 +409,11 @@ $config['encryption_key'] = hex2bin('b8bc4dacca2d4e90bd6f5d78a5f7ca4161e00f81349
 */
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_cookie_name'] = sha1(
-    'Session_Cookie_Name_HungNG_CodeIgniter_v3_skeleton_tVdOt99RreiaULriXOnxflwCzehBxQNc'
-);
-$config['sess_expiration'] = 7200;
+$config['sess_expiration'] = 720;
 $config['sess_expire_on_close'] = FALSE;
 $config['sess_encrypt_cookie']  = TRUE; 
 $config['sess_use_database']    = FALSE;
 $config['sess_table_name']      = 'ci_sessions';
-$config['sess_save_path'] = NULL;
 if (ENVIRONMENT == "production"){
     $config['sess_save_path'] = sys_get_temp_dir();
 }else{
@@ -429,9 +425,8 @@ if (ENVIRONMENT == "production"){
 if (!is_dir($config['sess_save_path']) || !is_writable($config['sess_save_path'])){
     $config['sess_save_path'] = NULL;
 }
-$config['sess_match_ip'] = FALSE;
 $config['sess_match_ip'] = TRUE;
-$config['sess_match_useragent'] = TRUE;
+$config['sess_match_useragent'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
 
@@ -453,8 +448,15 @@ $config['sess_regenerate_destroy'] = FALSE;
 $config['cookie_prefix']    = '';
 $config['cookie_domain']    = $domain;
 $config['cookie_path']      = '/'.$path;
-$config['cookie_secure']    = FALSE;
 $config['cookie_httponly']  = FALSE;
+if (ENVIRONMENT == "production"){
+    $config['cookie_secure']    = TRUE;
+    $config['cookie_samesite']  = 'None';
+}else{
+    $config['cookie_secure']    = FALSE;
+    $config['cookie_samesite']  = 'Lax';
+}
+
 
 /*
 |--------------------------------------------------------------------------
