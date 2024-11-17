@@ -193,3 +193,10 @@ if (!function_exists('addSchema')) {
         return "\"{$schema}\".{$table}";
     }
 }
+
+if (!function_exists('redirect2')){
+    function redirectGraceful($target){
+        ob_end_clean();
+        header('Location: ' . site_url($target));
+    }
+}
