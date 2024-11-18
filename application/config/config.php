@@ -409,7 +409,7 @@ $config['encryption_key'] = hex2bin('b8bc4dacca2d4e90bd6f5d78a5f7ca4161e00f81349
 */
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 720;
+$config['sess_expiration'] = 7200;
 $config['sess_expire_on_close'] = FALSE;
 $config['sess_encrypt_cookie']  = TRUE; 
 $config['sess_use_database']    = FALSE;
