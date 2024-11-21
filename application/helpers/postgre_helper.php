@@ -131,7 +131,7 @@ if (!function_exists('mysqlToPostgres')) {
 
 
         // Add schema name to tables in FROM, JOIN, LEFT JOIN, RIGHT JOIN clauses (only once per table name)
-        $query = preg_replace_callback('/\b(FROM|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN)\s+([\`\'\"a-zA-Z0-9\-_,\(\)\?\s]+?)(?=$|\;|\s+(ON|WHERE|HAVING|LIMIT|OFFSET|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|ORDER\s+BY|\;|$))/i', function($matches) use ($schema) {
+        $query = preg_replace_callback('/\b(INSERT\s+INTO|UPDATE|FROM|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN)\s+([\`\'\"a-zA-Z0-9\-_,\(\)\?\s]+?)(?=$|\;|\s+(ON|WHERE|HAVING|LIMIT|OFFSET|JOIN|LEFT\s+JOIN|RIGHT\s+JOIN|ORDER\s+BY|VALUES|SET|\(|\;|$))/i', function($matches) use ($schema) {
             // Split comma-separated tables
             $tables = explode(',', $matches[2]);
             foreach ($tables as &$table) {
