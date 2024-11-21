@@ -121,6 +121,12 @@ $application_folder = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'applica
 if (!is_dir($application_folder)){
     $application_folder = 'application';
 }
+if (!is_dir($application_folder)){
+    $application_folder = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'app';
+}
+if (!is_dir($application_folder)){
+    $application_folder = 'app';
+}
 
 /*
  *---------------------------------------------------------------
