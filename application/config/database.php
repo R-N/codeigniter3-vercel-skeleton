@@ -100,12 +100,17 @@ $db['default'] = array(
 if ($db['default']['dbdriver'] == 'postgre'){
     $db['default']['port'] = 5432;
     $db['default']['username'] = '';
+    if (!$db['default']['schema']){
+        $db['default']['schema'] = $db['default']['database'];
+    }
     $db['default']['database'] = 'postgres';
 }
 if ($db['default']['dbdriver'] == 'mysqli'){
     $db['default']['port'] = 3306;
     $db['default']['username'] = 'root';
-    $db['default']['database'] = $db['default']['schema'];
+    if ($db['default']['schema']){
+        $db['default']['database'] = $db['default']['schema'];
+    }
 }
 if (ENVIRONMENT == 'production'){
     $db['default']['hostname'] = getenv('POSTGRES_HOST') ? getenv('POSTGRES_HOST') : $db['default']['hostname'];
